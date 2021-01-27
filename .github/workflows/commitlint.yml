@@ -1,0 +1,21 @@
+name: Lint de commit
+
+on: [pull_request]
+
+jobs:
+  commit-lint:
+    name: Executar lint das mensagens de commit
+    runs-on: ubuntu-18.04
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+    - name: Project checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - uses: wagoid/commitlint-github-action@v2.1.6
+      with:
+        helpURL: https://github.com/BrasilAPI/BrasilAPI/blob/master/CONTRIBUTING.md
+
