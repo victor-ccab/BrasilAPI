@@ -10,7 +10,11 @@ Certifique-se de estar na pasta raiz do projeto para executar:
 
 ```npm run dev``` - nextjs local
 
-```npm run fix```- ESLint
+```npm run fix``` - ESLint
+
+## Mensagens de commit
+
+Para padronizar as mensagens de commit, fazemos uso do `Commitzen`, uma ferramenta que provê uma CLI para formatar e nos ajudar a organizar a mensagem de commit. Para usá-la, garanta ter as dependências do projeto instaladas, e após isso é só usar o comando convencional do git: `git commit`. A CLI da ferramenta será aberta, e após escrita a mensagem a interface de mensagem convencional do Git será aberta para que você confirme a mensagem de commit.
 
 ## Pull requests (PRs)
 
