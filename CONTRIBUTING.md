@@ -14,7 +14,18 @@ Certifique-se de estar na pasta raiz do projeto para executar:
 
 ## Mensagens de commit
 
-Para padronizar as mensagens de commit, fazemos uso do `Commitzen`, uma ferramenta que provê uma CLI para formatar e nos ajudar a organizar a mensagem de commit. Para usá-la, garanta ter as dependências do projeto instaladas, e após isso é só usar o comando convencional do git: `git commit`. A CLI da ferramenta será aberta, e após escrita a mensagem a interface de mensagem convencional do Git será aberta para que você confirme a mensagem de commit.
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+
+As mensagens de commit devem seguir o padrão do _conventional commit_.
+
+Execute `git commit` para ter um painel interativo que permite seguir o padrão de commit de forma fácil.
+
+Para saber mais, acesse esses links:
+- [Especificação do Conventional Commit](https://www.conventionalcommits.org/)
+- [Regras do @commitlint/config-conventional](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional).
+
+> Caso esse padrão não seja seguido o commit será abortado. Se conseguir criar tal commit, a pipeline no [pull request](#pull-requests-prs) irá detectar e quebrar.
 
 ## Pull requests (PRs)
 
