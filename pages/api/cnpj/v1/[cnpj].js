@@ -1,9 +1,5 @@
-import microCors from 'micro-cors';
+import app from '../../../../app';
 import { getCnpjData } from '../../../../services/cnpj';
-
-const cors = microCors();
-const CACHE_CONTROL_HEADER_VALUE =
-  'max-age=0, s-maxage=86400, stale-while-revalidate';
 
 // Takes BrasilAPI's request and response objects, together with Minha
 // Receita's response to build the final user HTTP response — including a
@@ -24,7 +20,6 @@ function responseProxy(request, response, result) {
 }
 
 async function cnpjData(request, response) {
-  response.setHeader('Cache-Control', CACHE_CONTROL_HEADER_VALUE);
   try {
     const result = await getCnpjData(request.query.cnpj);
     responseProxy(request, response, result);
@@ -38,4 +33,4 @@ async function cnpjData(request, response) {
   }
 }
 
-export default cors(cnpjData);
+export default app().get(cnpjData);
