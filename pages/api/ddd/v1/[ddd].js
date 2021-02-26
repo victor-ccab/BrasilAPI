@@ -1,6 +1,10 @@
 import app from '../../../../app';
+
+import BaseError from '../../../../errors/base';
+import InternalServerError from '../../../../errors/internal-server';
+import NotFoundError from '../../../../errors/not-found';
+
 import { getDddsData } from '../../../../services/ddd';
-import DddError from '../../../../errors/ddd';
 
 async function citiesOfDdd(request, response, next) {
   try {
@@ -12,7 +16,11 @@ async function citiesOfDdd(request, response, next) {
 
     if (dddData.length === 0) {
       response.status(404);
-      throw new DddError(404, 'DDD não encontrado', 'DDD_NOT_FOUND');
+      throw new NotFoundError(
+        'ddd_error',
+        'DDD não encontrado',
+        'DDD_NOT_FOUND'
+      );
     }
 
     const { state } = dddData[0];
@@ -27,12 +35,12 @@ async function citiesOfDdd(request, response, next) {
     response.status(200);
     return response.json(dddResult);
   } catch (error) {
-    if (error instanceof DddError) {
+    if (error instanceof BaseError) {
       return next(error);
     }
 
-    throw new DddError(
-      500,
+    throw new InternalServerError(
+      'ServiceError',
       'Todos os serviços de DDD retornaram erro.',
       'service_error'
     );

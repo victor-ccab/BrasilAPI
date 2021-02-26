@@ -1,4 +1,4 @@
-import DddError from '../errors/ddd';
+import BaseError from '../errors/base';
 
 const getCepErrorStatusCode = (error) => {
   const errorTypeToStatus = {
@@ -16,7 +16,7 @@ export default function errorHandler(error, request, response) {
     return response.json(error);
   }
 
-  if (error instanceof DddError) {
+  if (error instanceof BaseError) {
     return response.status(error.status).json({
       message: error.message,
       type: error.type,
