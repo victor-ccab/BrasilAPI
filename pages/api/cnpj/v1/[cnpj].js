@@ -9,27 +9,30 @@ import { getCnpjData } from '../../../../services/cnpj';
 // `catch` branches of the main handler.
 function responseProxy(request, response, result) {
   // the CNPJ is valid but does not exist
+
   if (result.status === 204) {
     response.status(404);
-    response.json({ message: `CNPJ ${request.query.cnpj} não encontrado.` });
-    return;
+    return response.json({
+      message: `CNPJ ${request.query.cnpj} não encontrado.`,
+    });
   }
 
   response.status(result.status);
-  response.json(result.data);
+  return response.json(result.data);
 }
 
 async function cnpjData(request, response) {
   try {
     const result = await getCnpjData(request.query.cnpj);
-    responseProxy(request, response, result);
+
+    return responseProxy(request, response, result);
   } catch (error) {
     if (error.response.status >= 400 && error.response.status < 500) {
-      responseProxy(request, response, error.response);
-    } else {
-      response.status(500);
-      response.json(error);
+      return responseProxy(request, response, error.response);
     }
+
+    response.status(error.response.status);
+    return response.json(error);
   }
 }
 

@@ -1,4 +1,6 @@
 import app from '../../../../app';
+import BaseError from '../../../../errors/base';
+import InternalServerError from '../../../../errors/internal-server';
 import getHolidays from '../../../../services/holidays';
 
 const action = (request, response) => {
@@ -7,17 +9,15 @@ const action = (request, response) => {
 
     response.status(200).json(holidays);
   } catch (error) {
-    if (error.message === 'Cannot calculate holidays.') {
-      response.status(404).json({
-        type: 'feriados_range_error',
-        message: 'Ano fora do intervalo suportado entre 1900 e 2199.',
-      });
-    } else {
-      response.status(500).json({
-        type: 'feriados_error',
-        message: 'Erro ao calcular feriados.',
-      });
+    if (error instanceof BaseError) {
+      throw error;
     }
+
+    throw new InternalServerError(
+      'InternalServerError',
+      'Erro ao calcular feriados.',
+      'feriados_error'
+    );
   }
 };
 

@@ -1,27 +1,23 @@
 import BaseError from '../errors/base';
 
-const getCepErrorStatusCode = (error) => {
-  const errorTypeToStatus = {
-    validation_error: 400,
-    service_error: 404,
-  };
-
-  return errorTypeToStatus[error.type];
-};
-
 export default function errorHandler(error, request, response) {
-  if (error.name === 'CepPromiseError') {
-    response.status(getCepErrorStatusCode(error));
-
-    return response.json(error);
-  }
+  console.log({
+    url: request.url,
+    ...error,
+  });
 
   if (error instanceof BaseError) {
-    return response.status(error.status).json({
+    const errorResponse = {
       message: error.message,
       type: error.type,
       name: error.name,
-    });
+    };
+
+    if (error.errors.length !== 0) {
+      errorResponse.errors = error.errors;
+    }
+
+    return response.status(error.statusCode).json(errorResponse);
   }
 
   return response.status(500).json(error);

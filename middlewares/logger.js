@@ -7,5 +7,5 @@ export default function logger(request, response, next) {
     clientIp,
   });
 
-  next();
+  return next();
 }

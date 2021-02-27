@@ -6,7 +6,7 @@ function BadRequestError(
   type = 'bad_request_error',
   errors = []
 ) {
-  this.status = 400;
+  this.statusCode = 400;
   this.name = name;
   this.message = message;
   this.type = type;
